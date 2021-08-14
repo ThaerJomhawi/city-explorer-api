@@ -23,7 +23,7 @@ server.get("/weather", (req, res) => {
 
 server.get("/weather/:lat/:lon", (req, res) => {
   let liveWeatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${req.params.lat}&lon=${req.params.lon}&key=${WEATHER_API_KEY}`;
-
+console.log(liveWeatherUrl);
   let weatherDataArr = [];
 
   axios
@@ -45,9 +45,12 @@ server.get("/movie/:city_name", (req, res) => {
   axios
     .get(movieUrl)
     .then((movieRes) => {
-      movieRes.data.results.map((item) => movieDataArr.push(new Movies(item)));
+      movieRes.data.results.map((item) =>{
+        movieDataArr.push(new Movies(item))
+        console.log(item);
+      } );
       res.send(movieDataArr);
-      console.log(movieDataArr);
+     
     })
     .catch((error) => {
       res.status(500).send(error);
@@ -66,7 +69,7 @@ class Movies {
     this.title = city.title;
     this.overview = city.overview;
     this.averageVotes = city.vote_average;
-    this.totalVotes = city.vote_count;
+    this.vote_count = city.vote_count;
     this.imageUrl = `https://image.tmdb.org/t/p/w500/${city.poster_path}`;
     this.popularity = city.popularity;
     this.releasedOn = city.release_date;

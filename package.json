@@ -4,7 +4,8 @@
   "description": "server for the city-explorer project",
   "main": "server.js",
   "scripts": {
-    "test": "city test"
+    "test": "city test",
+    "start":"nodemon server.js"
   },
   "repository": {
     "type": "git",
